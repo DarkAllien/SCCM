@@ -1,0 +1,30 @@
+declare @AuthListLocalID as int
+select @AuthListLocalID=CI_ID from v_AuthListInfo
+where CI_UniqueID=@AuthListID
+SELECT distinct
+ui.BulletinID,
+ui.ArticleID,
+ui.Title,
+ui.Description,
+ui.DateRevised,
+    CASE ui.Severity
+      WHEN 10 THEN 'Critical'
+      WHEN 8 THEN 'Important'
+      WHEN 6 THEN 'Moderate'
+      WHEN 2 THEN 'Low'
+      Else '(Unknown)'
+END AS [Severity]
+into #temp
+FROM v_UpdateComplianceStatus ucsa
+INNER JOIN v_CIRelation cir ON ucsa.CI_ID = cir.ToCIID
+INNER JOIN v_UpdateInfo ui ON ucsa.CI_ID = ui.CI_ID
+WHERE
+cir.FromCIID=@AuthListLocalID
+AND
+cir.RelationType=1
+AND
+ucsa.Status = '2' --Required
+select distinct
+bulletinid,articleid,title,description,daterevised,severity,ROW_NUMBER( ) over (order by severity,bulletinid) as [row]
+from #temp order by row
+drop table #temp
