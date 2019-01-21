@@ -165,14 +165,6 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-CREATE TABLE [dbo].[SCEP](
-	[AntivirusSignatureVersion] [varchar](50) NULL,
-	[Count] [int] NULL,
-	[Filter] [varchar](50) NULL,
-	[TimeStamp] [smalldatetime] NULL
-) ON [PRIMARY]
-GO
-
 USE [Grafana]
 GO
 
