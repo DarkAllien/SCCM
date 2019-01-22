@@ -1,6 +1,6 @@
 #Parameters
-$SQL_Server = 'sql.server.fqdn'
-$Database ='CM_XXX'
+$SQL_Server = '<your SCCM SQL server FQDN>'
+$Database ='<your SCCM Database>'
 [string]$dirfiles = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
 $coll_stats = Import-Csv $dirfiles'\coll_stats.csv'
 
