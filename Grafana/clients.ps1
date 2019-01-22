@@ -1,5 +1,5 @@
 #Parameters
-$SQL_Server = '<your SCCM SQL server>'
+$SQL_Server = '<your SCCM SQL server FQDN>'
 $Database ='<your SCCM Database>'
 $Server_Collection = '<your server collection ID>'
 $Workstation_Collection = '<your workstation collection ID>'
@@ -38,7 +38,7 @@ try {
     $result = Invoke-Sqlcmd $sqlCmd  -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 foreach ($row in $result){
     $body='Clients CMG_Updates_Scan='+$row.cmg_updates_scan+',CMG_Clients='+$row.cmg_clients+',MP_Clients='+$row.mp_clients
@@ -62,7 +62,7 @@ try {
     $result = Invoke-Sqlcmd $sqlCmd1 -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 $sqlCmd2 = "
 DECLARE @UserSIDs VARCHAR(16)= 'disabled';
@@ -82,7 +82,7 @@ try {
     $result2 = Invoke-Sqlcmd $sqlCmd2 -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 
 foreach ($row in $result){
@@ -208,7 +208,7 @@ try {
     $result = Invoke-Sqlcmd $sqlCmd -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 foreach ($row in $result){
     $OS=$row.OS -replace " ","_"
@@ -268,7 +268,7 @@ try {
     $result = Invoke-Sqlcmd $sqlCmd  -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 foreach ($row in $result){
     $body='DistributionPoints DP_OK='+$row.DP_OK+',PKG_Not_Installed='+$row.PKG_Not_Installed+',PKG_Error='+$row.PKG_Error+',DP_In_Progress='+$row.DP_In_Progress+',DP_Error='+$row.DP_Error
@@ -356,7 +356,7 @@ try {
     $result = Invoke-Sqlcmd $sqlCmd  -server $SQL_Server -Database $Database
 }
 catch {
-    return $false
+    #return $false
 }
 foreach ($row in $result){
     $body='Content_WKS '+'BranchCache='+$row.BranchCache_GB+',CloudDP='+$row.CloudDP_GB+',DP='+$row.DP_GB+',PeerCache='+$row.PeerCache_GB
