@@ -205,7 +205,7 @@ AS
 
          INSERT INTO [grafana].[dbo].[Servers]
                 SELECT DISTINCT
-                       [s].[name0] + [s].[Full_Domain_Name0] AS [Name],
+                       [s].[name0] + '.' + [s].[Full_Domain_Name0] AS [Name],
                        [vc].[ResourceID] AS [ResourceID],
                        'Unknown' AS [Statename],
                        'Unknown' AS [Compliance],
